@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Granny's Tamales - AI Voice Agent</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #d4a574 0%, #8b6f47 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 60px 40px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #8b6f47;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #d4a574;
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            color: #666;
+            font-size: 0.95em;
+            font-style: italic;
+        }
+
+        .content {
+            margin: 40px 0;
+            line-height: 1.8;
+        }
+
+        .features {
+            background: #f9f5f0;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .features h3 {
+            color: #8b6f47;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .features li {
+            color: #555;
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #d4a574;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .cta-text {
+            text-align: center;
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0d5ca;
+        }
+
+        .cta-text strong {
+            color: #8b6f47;
+        }
+
+        .agent-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 25px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .agent-button {
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌶️ Granny's Tamales</h1>
+            <div class="subtitle">AI Voice Agent</div>
+            <div class="tagline">Fresh tamales, always ready to serve</div>
+        </div>
+
+        <div class="content">
+            <p>Welcome to <strong>Granny's Tamales</strong>! Our AI voice agent is here to help you:</p>
+
+            <div class="features">
+                <h3>What Can We Do For You?</h3>
+                <ul>
+                    <li><strong>Take Phone Orders</strong> — Call and order fresh tamales anytime</li>
+                    <li><strong>Answer Questions</strong> — Learn about our flavors and ingredients</li>
+                    <li><strong>Capture Your Information</strong> — Easy pickup or delivery scheduling</li>
+                    <li><strong>Check Availability</strong> — See what's fresh and ready today</li>
+                </ul>
+            </div>
+
+            <div class="cta-text">
+                <p>👉 <strong>Look to the bottom right</strong> to start a voice call with our AI agent and place your order now!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Retell AI Voice Widget -->
+    <div class="agent-button">
+        <iframe
+            src="https://retellai.com/embed?publicKey=public_key_67bcf12c573597e69878b&agentId=agent_6d07d0e66f8413b4fb91dadf90"
+            width="400"
+            height="600"
+            frameborder="0"
+            allow="microphone"
+            style="border-radius: 12px; box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);"
+        ></iframe>
+    </div>
+</body>
+</html>
