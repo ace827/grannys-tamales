@@ -237,6 +237,39 @@
 
     .chip svg { color: var(--red); }
 
+    /* ─── Bilingual banner ─── */
+    .bilingual-banner {
+      background: linear-gradient(135deg, var(--red) 0%, #8b1a10 100%);
+      border-radius: 12px;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bilingual-banner .lang-flags {
+      display: flex;
+      gap: 4px;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .bilingual-banner .lang-text {
+      color: var(--white);
+    }
+
+    .bilingual-banner .lang-text strong {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+
+    .bilingual-banner .lang-text span {
+      font-size: 0.74rem;
+      opacity: .82;
+    }
+
     /* ─── Footer strip ─── */
     .footer-strip {
       background: var(--ink);
@@ -346,6 +379,10 @@
           <svg width="17" height="17"><use href="#i-check"/></svg>
           <span><strong>Sounds like a real person</strong> — warm, natural voice</span>
         </li>
+        <li>
+          <svg width="17" height="17"><use href="#i-check"/></svg>
+          <span><strong>Bilingual — English &amp; Spanish</strong> — habla con nosotros en tu idioma</span>
+        </li>
       </ul>
 
       <div class="chips">
@@ -364,6 +401,9 @@
         <div class="chip">
           <svg width="13" height="13"><use href="#i-mic"/></svg>
           AI-Powered
+        </div>
+        <div class="chip" style="background:var(--red);border-color:var(--red3);color:var(--white);font-weight:600;">
+          🇺🇸 EN &nbsp;|&nbsp; 🇲🇽 ES
         </div>
       </div>
     </div>
@@ -387,6 +427,14 @@
           <strong style="color:var(--dark);display:block;margin-bottom:4px;">What to try:</strong>
           "I'd like to order 2 dozen pork tamales for pickup Saturday at noon. My name is Maria and my number is…"
         </p>
+      </div>
+
+      <div class="bilingual-banner">
+        <div class="lang-flags">🇺🇸 🇲🇽</div>
+        <div class="lang-text">
+          <strong>Bilingual — English &amp; Español</strong>
+          <span>Our AI speaks both — just start talking in your language</span>
+        </div>
       </div>
     </div>
 
