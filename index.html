@@ -1,309 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Granny's Tamales - AI Receptionist</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Granny's Tamales — AI Order Assistant Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
+  <!-- Retell AI Widget -->
+  <script id="retell-widget"
+    src="https://dashboard.retellai.com/retell-widget-v2.js"
+    data-voice-public-key="public_key_67bcf12c573597e69878b"
+    data-voice-agent-id="agent_6d07d0e66f8413b4fb91dadf90"
+    data-title="Granny's Tamales"
+    data-color="#c0392b"
+    data-fab-text="Order Now"
+    data-bot-name="Granny's AI Order Assistant"
+    data-greeting-message="Hi! Welcome to Granny's Tamales. I can take your pickup order, answer questions about our menu, or help with anything else. How can I help you today?"
+  ></script>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #2c1810 0%, #1a0f08 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #333;
-        }
+  <style>
+    :root {
+      --red:     #c0392b;
+      --red2:    #e74c3c;
+      --red3:    #922b21;
+      --cream:   #fdf6ec;
+      --warm:    #f5e6d0;
+      --border:  #e8d5b7;
+      --ink:     #1a0a00;
+      --dark:    #3d1f0a;
+      --mid:     #7a5c3a;
+      --white:   #ffffff;
+      --card:    #fefaf4;
+    }
 
-        .wrapper {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            gap: 0;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .content-section {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 40px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(250,248,245,0.98) 100%);
-        }
+    html, body {
+      height: 100%;
+      overflow: hidden; /* no scrolling — fits viewport */
+    }
 
-        .content {
-            max-width: 500px;
-            width: 100%;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px 20px;
+    }
 
-        .logo {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
+    /* ─── Hero card ─── */
+    .card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 8px 48px rgba(26,10,0,.12), 0 2px 8px rgba(26,10,0,.06);
+      max-width: 780px;
+      width: 100%;
+      overflow: hidden;
+    }
 
-        .brand {
-            margin-bottom: 8px;
-        }
+    /* ─── Top band ─── */
+    .top-band {
+      background: var(--red);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-        .brand h1 {
-            font-size: 42px;
-            font-weight: 800;
-            color: #1a0f08;
-            line-height: 1.1;
-            letter-spacing: -0.5px;
-        }
+    .top-band .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,.18);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
 
-        .brand .subtitle {
-            font-size: 16px;
-            color: #c9895e;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            margin-top: 4px;
-        }
+    .top-band .brand {
+      color: var(--white);
+    }
 
-        .tagline {
-            font-size: 14px;
-            color: #8b7355;
-            font-weight: 500;
-            margin-bottom: 32px;
-            letter-spacing: 0.3px;
-        }
+    .top-band .brand h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
 
-        .description {
-            font-size: 15px;
-            color: #555;
-            line-height: 1.7;
-            margin-bottom: 28px;
-            font-weight: 500;
-        }
+    .top-band .brand p {
+      font-size: 0.78rem;
+      opacity: .82;
+      margin-top: 2px;
+      letter-spacing: .03em;
+    }
 
-        .features {
-            background: linear-gradient(135deg, #faf8f5 0%, #f5f1ed 100%);
-            padding: 28px;
-            border-radius: 16px;
-            margin-bottom: 28px;
-            border: 1px solid rgba(201, 137, 94, 0.15);
-        }
+    .top-band .badge {
+      margin-left: auto;
+      background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.72rem;
+      color: var(--white);
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
 
-        .features-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1a0f08;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+    /* ─── Body content ─── */
+    .body {
+      padding: 32px 36px 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
 
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 12px;
-            font-size: 14px;
-            color: #555;
-            line-height: 1.6;
-        }
+    /* Left column */
+    .left h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
 
-        .feature-item:last-child {
-            margin-bottom: 0;
-        }
+    .left h2 span {
+      color: var(--red);
+    }
 
-        .feature-check {
-            color: #c9895e;
-            font-weight: 700;
-            margin-right: 12px;
-            flex-shrink: 0;
-            margin-top: 1px;
-        }
+    .left .tagline {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.55;
+      margin-bottom: 22px;
+    }
 
-        .feature-text strong {
-            color: #1a0f08;
-            font-weight: 600;
-        }
+    .features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      margin-bottom: 24px;
+    }
 
-        .cta-section {
-            padding-top: 20px;
-            border-top: 1px solid rgba(201, 137, 94, 0.2);
-        }
+    .features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: var(--dark);
+      line-height: 1.45;
+    }
 
-        .cta-text {
-            font-size: 14px;
-            color: #666;
-            text-align: center;
-            line-height: 1.6;
-        }
+    .features li svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--red);
+    }
 
-        .cta-text strong {
-            color: #1a0f08;
-            font-weight: 600;
-        }
+    /* Right column */
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
-        .cta-arrow {
-            font-size: 18px;
-            margin-right: 6px;
-        }
+    .demo-box {
+      background: var(--cream);
+      border: 2px dashed var(--border);
+      border-radius: 14px;
+      padding: 22px 20px;
+      text-align: center;
+    }
 
-        .widget-section {
-            flex: 0 0 480px;
-            background: linear-gradient(135deg, #3d2817 0%, #2c1810 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            border-left: 1px solid rgba(0,0,0,0.2);
-        }
+    .demo-box .arrow-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
 
-        .widget-container {
-            width: 100%;
-            height: 100%;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    .demo-box .arrow-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--red);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
 
-        .widget-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 20px;
-        }
+    .demo-box p {
+      font-size: 0.83rem;
+      color: var(--mid);
+      line-height: 1.5;
+    }
 
-        .loading-text {
-            color: rgba(255,255,255,0.7);
-            font-size: 14px;
-            text-align: center;
-        }
+    /* Pulse arrow pointing down-right */
+    .arrow-anim {
+      animation: bounce 1.4s ease-in-out infinite;
+      display: inline-block;
+    }
 
-        @media (max-width: 1200px) {
-            .wrapper {
-                flex-direction: column;
-            }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(4px) translateX(4px); }
+    }
 
-            .widget-section {
-                flex: 0 0 500px;
-                border-left: none;
-                border-top: 1px solid rgba(0,0,0,0.2);
-            }
+    /* Info chips */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
-            .content-section {
-                padding: 40px 30px;
-            }
+    .chip {
+      background: var(--warm);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      color: var(--dark);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-            .brand h1 {
-                font-size: 36px;
-            }
-        }
+    .chip svg { color: var(--red); }
 
-        @media (max-width: 768px) {
-            body {
-                overflow-y: auto;
-            }
+    /* ─── Footer strip ─── */
+    .footer-strip {
+      background: var(--ink);
+      padding: 13px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-            .wrapper {
-                flex-direction: column;
-                height: auto;
-                min-height: 100vh;
-            }
+    .footer-strip p {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,.5);
+    }
 
-            .content-section {
-                padding: 30px 20px;
-                background: linear-gradient(135deg, rgba(255,255,255,0.99) 0%, rgba(250,248,245,0.99) 100%);
-            }
+    .footer-strip .powered {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,.38);
+      font-style: italic;
+    }
 
-            .widget-section {
-                flex: 1;
-                min-height: 500px;
-                border-top: 1px solid rgba(0,0,0,0.1);
-            }
+    /* ─── SVG sprite (hidden) ─── */
+    .sprite { display: none; }
 
-            .brand h1 {
-                font-size: 32px;
-            }
-
-            .brand .subtitle {
-                font-size: 14px;
-            }
-
-            .description {
-                font-size: 14px;
-            }
-        }
-    </style>
+    /* Responsive: stack on small screens */
+    @media (max-width: 640px) {
+      html, body { overflow: auto; }
+      .body { grid-template-columns: 1fr; gap: 20px; padding: 24px 20px 28px; }
+      .top-band { padding: 14px 20px; }
+      .top-band .badge { display: none; }
+      .footer-strip { flex-direction: column; gap: 4px; text-align: center; }
+    }
+  </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="content-section">
-            <div class="content">
-                <div class="logo">🌶️</div>
 
-                <div class="brand">
-                    <h1>Granny's Tamales</h1>
-                    <div class="subtitle">AI Receptionist</div>
-                </div>
+<!-- SVG Sprite -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+  </symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+  </symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+  </symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+  </symbol>
+  <symbol id="i-arrow-dr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="5" x2="19" y2="19"/><polyline points="13 19 19 19 19 13"/>
+  </symbol>
+  <symbol id="i-tamale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3C7 3 3 7 3 12s4 9 9 9 9-4 9-9-4-9-9-9z"/><path d="M8 12c0-2.2 1.8-4 4-4s4 1.8 4 4-1.8 4-4 4-4-1.8-4-4z"/><path d="M12 8v1M12 15v1M8 12h1M15 12h1"/>
+  </symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+  </symbol>
+</svg>
 
-                <div class="tagline">Fresh tamales, always ready to serve</div>
+<div class="card">
 
-                <p class="description">
-                    Call our AI receptionist to place orders, ask questions, and schedule your pickup or delivery.
-                </p>
-
-                <div class="features">
-                    <div class="features-title">What We Can Do</div>
-
-                    <div class="feature-item">
-                        <span class="feature-check">✓</span>
-                        <span class="feature-text"><strong>Take Orders</strong> — Fresh tamales anytime</span>
-                    </div>
-
-                    <div class="feature-item">
-                        <span class="feature-check">✓</span>
-                        <span class="feature-text"><strong>Answer Questions</strong> — Flavors, ingredients & availability</span>
-                    </div>
-
-                    <div class="feature-item">
-                        <span class="feature-check">✓</span>
-                        <span class="feature-text"><strong>Schedule Pickup</strong> — Easy delivery or in-store pickup</span>
-                    </div>
-
-                    <div class="feature-item">
-                        <span class="feature-check">✓</span>
-                        <span class="feature-text"><strong>24/7 Available</strong> — Call anytime that works for you</span>
-                    </div>
-                </div>
-
-                <div class="cta-section">
-                    <p class="cta-text">
-                        <span class="cta-arrow">👉</span><strong>Start a call</strong> with our AI receptionist on the right →
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="widget-section">
-            <div class="widget-container">
-                <iframe
-                    id="retell-iframe"
-                    src="https://retellai.com/embed?publicKey=public_key_67bcf12c573597e69878b&agentId=agent_6d07d0e66f8413b4fb91dadf90"
-                    class="widget-iframe"
-                    allow="microphone"
-                    title="AI Receptionist"
-                ></iframe>
-            </div>
-        </div>
+  <!-- Top band -->
+  <div class="top-band">
+    <div class="logo-icon">
+      <svg width="24" height="24"><use href="#i-tamale"/></svg>
     </div>
+    <div class="brand">
+      <h1>Granny's Tamales</h1>
+      <p>Homemade Tamales &amp; Family Recipes</p>
+    </div>
+    <div class="badge">AI Demo</div>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+
+    <!-- Left: info -->
+    <div class="left">
+      <h2>Meet Your <span>AI Order<br>Assistant</span></h2>
+      <p class="tagline">
+        Available 24/7, our AI can take your pickup order, answer menu questions, capture your contact info, and make sure your tamales are ready when you arrive.
+      </p>
+
+      <ul class="features">
+        <li>
+          <svg width="17" height="17"><use href="#i-check"/></svg>
+          <span><strong>Take pickup orders</strong> — place your order by voice, anytime</span>
+        </li>
+        <li>
+          <svg width="17" height="17"><use href="#i-check"/></svg>
+          <span><strong>Answer menu questions</strong> — flavors, ingredients, pricing</span>
+        </li>
+        <li>
+          <svg width="17" height="17"><use href="#i-check"/></svg>
+          <span><strong>Capture customer info</strong> — name, phone, pickup time</span>
+        </li>
+        <li>
+          <svg width="17" height="17"><use href="#i-check"/></svg>
+          <span><strong>Never miss a call</strong> — handles volume during busy hours</span>
+        </li>
+        <li>
+          <svg width="17" height="17"><use href="#i-check"/></svg>
+          <span><strong>Sounds like a real person</strong> — warm, natural voice</span>
+        </li>
+      </ul>
+
+      <div class="chips">
+        <div class="chip">
+          <svg width="13" height="13"><use href="#i-clock"/></svg>
+          24/7 Available
+        </div>
+        <div class="chip">
+          <svg width="13" height="13"><use href="#i-phone"/></svg>
+          Voice Ordering
+        </div>
+        <div class="chip">
+          <svg width="13" height="13"><use href="#i-bag"/></svg>
+          Pickup Orders
+        </div>
+        <div class="chip">
+          <svg width="13" height="13"><use href="#i-mic"/></svg>
+          AI-Powered
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: demo pointer -->
+    <div class="right">
+      <div class="demo-box">
+        <div class="arrow-wrap">
+          <span class="arrow-label">Try the Demo</span>
+          <span class="arrow-anim">
+            <svg width="20" height="20" color="#c0392b"><use href="#i-arrow-dr"/></svg>
+          </span>
+        </div>
+        <p>
+          Click the <strong>"Order Now"</strong> button in the <strong>bottom-right corner</strong> to speak with Granny's AI Order Assistant — place a pickup order, ask about the menu, or just try it out.
+        </p>
+      </div>
+
+      <div style="background:var(--warm);border-radius:12px;padding:16px 18px;">
+        <p style="font-size:0.8rem;color:var(--mid);line-height:1.55;">
+          <strong style="color:var(--dark);display:block;margin-bottom:4px;">What to try:</strong>
+          "I'd like to order 2 dozen pork tamales for pickup Saturday at noon. My name is Maria and my number is…"
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer strip -->
+  <div class="footer-strip">
+    <p>Granny's Tamales &copy; 2024 — Homemade with love</p>
+    <p class="powered">Powered by Retell AI</p>
+  </div>
+
+</div>
+
 </body>
 </html>
